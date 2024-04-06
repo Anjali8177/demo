@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    
+    <div class="image-generator">
+        <div class="content">
+            <h1>AI Image Generator</h1>
+            
+            <p>Convert your text into image within a second using  this javascrip Ai </p>
+            
+           
+            
+                
+        </div>
+    </div>
+    <form action="#" class="generate-form">
+               
+        <input type="text"  class="prompt-input" placeholder="Describe which image you want ">
+        <div class="controls">
+            <select class="img-quantity">
+                <option value="1">1 Image</option>
+                <option value="2">2 Images</option>
+                <option value="3">3 Images</option>
+                <option value="4" selected>4 Images</option>
+            </select>
+            <button type="submit" class="generate-btn">Generate</button>
+        </div>
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" id="username " placeholder="Username" required>
+              </div>
+              <div class="col">
+                <input type="email" class="form-control" id="email" placeholder="email" required>
+              </div>
+            </div>
+            <button type="submit" class="GO" id="submit">GO</button>
+          </form>
+          
+    
+    <script type="module">
+      
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+  import {getDatabase,ref,set,get,child} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
+  import{getAnalytics} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+  
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAqcDLzDXkZKoelDCbvtiiqA3hCzbe5W2s",
+    authDomain: "inventory-management-74b63.firebaseapp.com",
+    projectId: "inventory-management-74b63",
+    storageBucket: "inventory-management-74b63.appspot.com",
+    messagingSenderId: "151040659949",
+    appId: "1:151040659949:web:629a83c7e835e6351357e4"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+//get reference to database services
+const db = getDatabase(app);
+
+document.getElementById('submit').addEventListener('click', function(e) {
+  e.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const email = document.getElementById("email").value;
+
+  // Reference to the 'users' node in the database
+  const usersRef = ref(db, 'users');
+
+  // Push a new child node with auto-generated ID under 'users' node
+  const newUserDataRef = push(usersRef);
+
+  // Set data under the auto-generated ID
+  set(newUserDataRef, {
+    username: username,
+    email: email
+  }).then(() => {
+    console.log("Data saved successfully");
+    alert("Data saved successfully");
+  }).catch((error) => {
+    console.error("Error saving data: ", error);
+    alert("Error saving data: " + error.message);
+  });
+});
+
+    </script>
+
+</body>
+</html>
